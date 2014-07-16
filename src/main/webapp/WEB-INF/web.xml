@@ -17,6 +17,11 @@
         <servlet-name>jaxws-servlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>jaxws-servlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
  
     <!-- Register Spring Listener -->
   	<listener>
