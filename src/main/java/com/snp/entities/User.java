@@ -1,14 +1,20 @@
-package com.mkyong.entities;
+package com.snp.entities;
 
+
+//@XmlRootElement
 public class User {
 	private Long id;
 	private String name;
+	
+//	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+//	@XmlAttribute
 	public String getName() {
 		return name;
 	}
@@ -16,5 +22,9 @@ public class User {
 		this.name = name;
 	}
 	
+	@Override
+	public String toString() {
+		return "id " + id + " name " + name;
+	}
 	
 }
