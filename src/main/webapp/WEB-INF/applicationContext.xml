@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:security="http://www.springframework.org/schema/security"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans
+       	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       	http://www.springframework.org/schema/mvc
+       	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       	http://www.springframework.org/schema/context
+       	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       	http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 	
+ 	<context:component-scan base-package="com.mkyong.rest" />
+ 	<mvc:annotation-driven />
+ 	
+<!--  	<security:http authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint"> -->
+<!--  		<security:custom-filter ref="salesforceLoginFilter" after="PRE_AUTH_FILTER"/>  -->
+<!--  		<security:intercept-url pattern="/**" access="ROLE_USER" /> -->
+<!--  	</security:http> -->
+ 	
+<!--  	<security:authentication-manager alias="authenticationManager"> -->
+<!-- 	  <security:authentication-provider ref="saleforceAuthenticationProvider"> -->
+<!-- 	    <security:user-service> -->
+<!-- 	      <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" /> -->
+<!-- 	      <security:user name="user" password="user" authorities="ROLE_USER" /> -->
+<!-- 	    </security:user-service> -->
+<!-- 	  </security:authentication-provider> -->
+<!-- 	</security:authentication-manager> -->
+	
+<!-- 	<bean id="basicAuthenticationFilter" class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter"> -->
+<!--         <constructor-arg ref="authenticationManager"/> -->
+<!--         <constructor-arg ref="restAuthenticationEntryPoint"/> -->
+<!--     </bean> -->
+    
+<!-- 	<bean id="saleforceAuthenticationProvider" class="com.snp.security.SalesforceAuthenticationProvider"></bean> -->
+	
+<!-- 	<bean id="restAuthenticationEntryPoint" class="com.snp.security.RestAuthenticationEntryPoint" ></bean> -->
+	
+<!-- 	<bean id="restServicesSuccessHandler" class="com.snp.security.RestAuthenticationSuccessHandler"></bean> -->
+	
+<!-- 	<bean id="salesforceLoginFilter" -->
+<!-- 		class="com.snp.security.SalesforceLoginFilter"> -->
+<!-- 		<property name="authenticationManager" ref="authenticationManager" /> -->
+<!-- 		<property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" /> --> 
+<!-- 	</bean> -->
+	
+	
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="url" value="jdbc:postgresql://ec2-54-225-69-193.compute-1.amazonaws.com:5432/d5jfqd1lo00nq9?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory" />
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="username" value="oioycqsyoizlgf" />
+		   <property name="password" value="vgtF_h_RPdJNbyRhi3mZ6ws_F0" />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="userDaoImpl" class="com.mkyong.dao.impl.UserDAOImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	
+    <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="messageConverters">
+	        <list>
+	            <ref bean="jacksonMessageConverter"/>
+	        </list>
+	    </property>
+	</bean>
+    
+</beans>
