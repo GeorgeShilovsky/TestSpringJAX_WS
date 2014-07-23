@@ -17,7 +17,7 @@
  	<context:component-scan base-package="com.mkyong.rest" />
  	<mvc:annotation-driven />
  	
- 	<security:http authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint" create-session="never">
+ 	<security:http authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
  		<security:custom-filter ref="salesforceLoginFilter" after="PRE_AUTH_FILTER"/> 
  		<security:intercept-url pattern="/**" access="ROLE_USER" />
  	</security:http>
