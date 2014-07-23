@@ -1,0 +1,25 @@
+<html>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		
+		$("#test-button").click(function() {
+			$.ajax("http://localhost:8080/spring-ws/rest/users", {
+				dataType : "json",
+				headers : { "token" : $('#token').val() }
+			}).done(function(resp) {
+				console.log(resp);
+			}).fail(function(resp) {
+				console.error(resp);
+			})
+		})
+
+	})
+</script>
+<body>
+	<input id="token" value="snp">
+	<button id="test-button">REST test (with token)</button>
+
+</body>
+</html>

@@ -17,13 +17,13 @@
  	<context:component-scan base-package="com.mkyong.rest" />
  	<mvc:annotation-driven />
  	
- 	<security:http authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint">
+ 	<security:http authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint" create-session="never">
  		<security:custom-filter ref="salesforceLoginFilter" after="PRE_AUTH_FILTER"/> 
  		<security:intercept-url pattern="/**" access="ROLE_USER" />
  	</security:http>
  	
  	<security:authentication-manager alias="authenticationManager">
-<!-- 	  <security:authentication-provider ref="saleforceAuthenticationProvider"> -->
+	  <security:authentication-provider ref="saleforceAuthenticationProvider" />
 <!-- 	    <security:user-service> -->
 <!-- 	      <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" /> -->
 <!-- 	      <security:user name="user" password="user" authorities="ROLE_USER" /> -->
@@ -36,17 +36,16 @@
 <!--         <constructor-arg ref="restAuthenticationEntryPoint"/> -->
 <!--     </bean> -->
     
-<!-- 	<bean id="saleforceAuthenticationProvider" class="com.snp.security.SalesforceAuthenticationProvider"></bean> -->
+	<bean id="saleforceAuthenticationProvider" class="com.snp.security.SalesforceAuthenticationProvider" />
 	
-	<bean id="restAuthenticationEntryPoint" class="com.snp.security.RestAuthenticationEntryPoint" ></bean>
+	<bean id="restAuthenticationEntryPoint" class="com.snp.security.RestAuthenticationEntryPoint" />
 	
-	<bean id="restServicesSuccessHandler" class="com.snp.security.RestAuthenticationSuccessHandler"></bean>
+<!-- 	<bean id="restServicesSuccessHandler" class="com.snp.security.RestAuthenticationSuccessHandler"></bean> -->
 	
-<!-- 	<bean id="salesforceLoginFilter" -->
-<!-- 		class="com.snp.security.SalesforceLoginFilter"> -->
-<!-- 		<property name="authenticationManager" ref="authenticationManager" /> -->
-<!-- 		<property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" /> --> 
-<!-- 	</bean> -->
+	<bean id="salesforceLoginFilter"
+		class="com.snp.security.SalesforceLoginFilter">
+		 <constructor-arg ref="authenticationManager" />
+	</bean>
 	
 	
 
